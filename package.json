@@ -1,19 +1,19 @@
 {
-  "name": "react-timeclock",
-  "version": "0.2.0",
+  "name": "spenpo-landing",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/spope851/react-timeclock.git"
+    "url": "https://github.com/spope851/spenpo-landing.git"
   },
   "bugs": {
-    "url": "https://github.com/spope851/react-timeclock/issues"
+    "url": "https://github.com/spope851/spenpo-landing/issues"
   },
   "author": {
     "name": "spencer pope",
-    "email": "spope851@gmail.com",
+    "email": "spenpo@spenpo.com",
     "url": "https://spenpo.com"
   },
   "license": "ISC",
