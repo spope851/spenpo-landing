@@ -3,10 +3,9 @@ import React, { useContext } from 'react'
 import { LandingPageContext } from '../context/landingPage'
 import { useDropzone } from 'react-dropzone'
 import { UploadSimple } from '@phosphor-icons/react'
-// import { ShoppingCartContext } from '@/context/shoppingCart'
 
 export const Headshot: React.FC = () => {
-  const { HEADSHOT_SRC, SECONDARY_ACCENT_COLOR, editable } =
+  const { HEADSHOT_SRC, SECONDARY_ACCENT_COLOR, editable, cms } =
     useContext(LandingPageContext)
 
   const BOX_PROPS = {
@@ -23,23 +22,23 @@ export const Headshot: React.FC = () => {
     minHeight: 200,
   }
 
-  // const {
-  //   file: [, setFile],
-  // } = useContext(ShoppingCartContext)
-
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
-    onDropAccepted: () => {
-      const reader = new FileReader()
-      reader.onabort = () =>
-        /* eslint-disable no-console */ console.log('file reading was aborted')
-      reader.onerror = () =>
-        /* eslint-disable no-console */ console.log('file reading has failed')
-      // reader.readAsArrayBuffer(acceptedFiles[0])
-      // reader.onload = async () => {
-      //   setFile(acceptedFiles[0])
-      //   cms?.headshotSrc.setter(URL.createObjectURL(acceptedFiles[0]))
-      // }
+    onDropAccepted: (acceptedFiles: Array<File>) => {
+      if (acceptedFiles[0]) {
+        const reader = new FileReader()
+        reader.onabort = () =>
+          /* eslint-disable no-console */ console.log('file reading was aborted')
+        reader.onerror = () =>
+          /* eslint-disable no-console */ console.log('file reading has failed')
+        reader.readAsArrayBuffer(acceptedFiles[0])
+        reader.onload = async () => {
+          if (acceptedFiles[0]) {
+            cms?.headshotFile.setter(acceptedFiles[0])
+            cms?.headshotSrc.setter(URL.createObjectURL(acceptedFiles[0]))
+          }
+        }
+      }
     },
   })
 
@@ -49,7 +48,6 @@ export const Headshot: React.FC = () => {
       <Box
         {...getRootProps()}
         {...BOX_PROPS}
-        // m="2px"
         sx={{
           ':hover': {
             cursor: 'pointer',
