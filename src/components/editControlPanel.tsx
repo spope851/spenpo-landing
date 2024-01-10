@@ -2,19 +2,24 @@ import { ColorPicker } from './colorPicker'
 import { LandingPageContext } from '../context/landingPage'
 import { Box, Drawer, IconButton, Stack, TextField, Tooltip } from '@mui/material'
 import React, { useContext, useState } from 'react'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import WallpaperIcon from '@mui/icons-material/Wallpaper'
-import EditOffIcon from '@mui/icons-material/EditOff'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/DeleteOutlined'
-import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined'
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown'
+import {
+  CaretDoubleDown,
+  Eye,
+  EyeSlash,
+  PencilSimple,
+  PencilSimpleSlash,
+  ImageSquare,
+  Trash,
+  CheckCircle,
+} from '@phosphor-icons/react'
 
 const VisibilityControl: React.FC = () => {
   const {
+    editable,
     hideButtons: [hideButtons, setHideButtons],
   } = useContext(LandingPageContext)
+
+  if (!editable) return <></>
 
   return (
     <Tooltip title={`${hideButtons ? 'show' : 'hide'} extra buttons`}>
@@ -22,7 +27,7 @@ const VisibilityControl: React.FC = () => {
         sx={{ position: 'absolute', right: 0 }}
         onClick={() => setHideButtons(!hideButtons)}
       >
-        {hideButtons ? <VisibilityOffIcon /> : <VisibilityIcon />}
+        {hideButtons ? <EyeSlash /> : <Eye />}
       </IconButton>
     </Tooltip>
   )
@@ -30,6 +35,8 @@ const VisibilityControl: React.FC = () => {
 
 const EditControl: React.FC = () => {
   const { editable } = useContext(LandingPageContext)
+
+  if (!editable) return <></>
 
   return (
     <Tooltip title={editable?.[0] ? 'preview' : 'edit'}>
@@ -39,9 +46,11 @@ const EditControl: React.FC = () => {
           right: 40,
           ml: { xs: 'auto' },
         }}
-        onClick={() => editable?.[1](!editable[0])}
+        onClick={() => {
+          if (editable) editable[1]((prev) => !prev)
+        }}
       >
-        {editable?.[0] ? <EditIcon /> : <EditOffIcon />}
+        {editable?.[0] ? <PencilSimple /> : <PencilSimpleSlash />}
       </IconButton>
     </Tooltip>
   )
@@ -57,79 +66,76 @@ const ContentControl: React.FC = () => {
     hideNewBackground: [hideNewBackground, setHideNewBackground],
     newBackground: [newBackground, setNewBackground],
   } = useContext(LandingPageContext)
+  if (!cms || !editable) return <></>
   return (
-    <>
-      {cms && editable && (
-        <Stack
-          direction={{ xl: 'row', lg: 'row', md: 'row' }}
-          sx={{
-            position: {
-              xl: 'absolute',
-              lg: 'absolute',
-              md: 'absolute',
-              sm: 'absolute',
-              xs: 'block',
-            },
-            display: editable[0] ? 'flex' : 'none',
+    <Stack
+      direction={{ xl: 'row', lg: 'row', md: 'row' }}
+      sx={{
+        position: {
+          xl: 'absolute',
+          lg: 'absolute',
+          md: 'absolute',
+          sm: 'absolute',
+          xs: 'block',
+        },
+        display: editable[0] ? 'flex' : 'none',
+      }}
+      mt={1}
+      ml={1}
+      mb={{ xs: 1 }}
+      rowGap={2}
+      alignItems={{ md: 'center', sm: 'flex-start' }}
+    >
+      <Stack
+        direction={{ xl: 'row', lg: 'row', md: 'row', sm: 'row' }}
+        columnGap={2}
+        rowGap={2}
+      >
+        <ColorPicker
+          label="Background Color"
+          color={[BACKGROUND_COLOR, cms.backgroundColor.setter]}
+          defaultColor="#E6E1DF"
+          sx={{ mr: 'auto' }}
+        />
+        <ColorPicker
+          label="Accent Color"
+          color={[ACCENT_COLOR, cms.accentColor.setter]}
+          defaultColor="#325D80"
+          sx={{ mr: 'auto' }}
+        />
+        <ColorPicker
+          label="Secondary Color"
+          color={[SECONDARY_ACCENT_COLOR, cms.secondaryAccentColor.setter]}
+          defaultColor="#5FA052"
+          sx={{ mr: 'auto' }}
+        />
+      </Stack>
+      <Stack direction="row" columnGap={2}>
+        <Tooltip title="change background image">
+          <IconButton onClick={() => setHideNewBackground(!hideNewBackground)}>
+            <ImageSquare />
+          </IconButton>
+        </Tooltip>
+        <TextField
+          sx={{ display: hideNewBackground ? 'none' : 'flex' }}
+          fullWidth
+          size="small"
+          label="Background Image Url"
+          value={newBackground}
+          onChange={(e) => setNewBackground(e.target.value)}
+        />
+        <IconButton
+          sx={{ my: 'auto', display: hideNewBackground ? 'none' : 'flex' }}
+          onClick={() => {
+            cms.backgroundImage.setter(newBackground)
+            setHideNewBackground(true)
+            setNewBackground('')
           }}
-          mt={1}
-          ml={1}
-          mb={{ xs: 1 }}
-          rowGap={2}
-          alignItems={{ md: 'center', sm: 'flex-start' }}
         >
-          <Stack
-            direction={{ xl: 'row', lg: 'row', md: 'row', sm: 'row' }}
-            columnGap={2}
-            rowGap={2}
-          >
-            <ColorPicker
-              label="Background Color"
-              color={[BACKGROUND_COLOR, cms.backgroundColor.setter]}
-              defaultColor="#E6E1DF"
-              sx={{ mr: 'auto' }}
-            />
-            <ColorPicker
-              label="Accent Color"
-              color={[ACCENT_COLOR, cms.accentColor.setter]}
-              defaultColor="#325D80"
-              sx={{ mr: 'auto' }}
-            />
-            <ColorPicker
-              label="Secondary Color"
-              color={[SECONDARY_ACCENT_COLOR, cms.secondaryAccentColor.setter]}
-              defaultColor="#5FA052"
-              sx={{ mr: 'auto' }}
-            />
-          </Stack>
-          <Stack direction="row" columnGap={2}>
-            <Tooltip title="change background image">
-              <IconButton onClick={() => setHideNewBackground(!hideNewBackground)}>
-                <WallpaperIcon />
-              </IconButton>
-            </Tooltip>
-            <TextField
-              sx={{ display: hideNewBackground ? 'none' : 'flex' }}
-              fullWidth
-              size="small"
-              label="Background Image Url"
-              value={newBackground}
-              onChange={(e) => setNewBackground(e.target.value)}
-            />
-            <IconButton
-              sx={{ my: 'auto', display: hideNewBackground ? 'none' : 'flex' }}
-              onClick={() => {
-                cms?.backgroundImage.setter(newBackground)
-                setHideNewBackground(true)
-                setNewBackground('')
-              }}
-            >
-              {newBackground ? <CheckCircleOutlinedIcon /> : <DeleteIcon />}
-            </IconButton>
-          </Stack>
-        </Stack>
-      )}
-    </>
+          {newBackground ? <CheckCircle /> : <Trash />}
+        </IconButton>
+      </Stack>
+    </Stack>
   )
 }
 
@@ -143,24 +149,22 @@ export const EditControlPanel: React.FC = () => {
       >
         <ContentControl />
       </Box>
-      <Box
-        display={
-          editable?.[0] ? { xl: 'none', lg: 'none', md: 'none', sm: 'none' } : 'none'
-        }
+      <IconButton
+        onClick={() => setOpen(true)}
+        sx={{
+          position: 'absolute',
+          display: editable?.[0]
+            ? { xl: 'none', lg: 'none', md: 'none', sm: 'none' }
+            : 'none',
+        }}
       >
-        <IconButton onClick={() => setOpen(true)} sx={{ position: 'absolute' }}>
-          <KeyboardDoubleArrowDownIcon />
-        </IconButton>
-        <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
-          <ContentControl />
-        </Drawer>
-      </Box>
-      {editable && (
-        <>
-          <VisibilityControl />
-          <EditControl />
-        </>
-      )}
+        <CaretDoubleDown />
+      </IconButton>
+      <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
+        <ContentControl />
+      </Drawer>
+      <VisibilityControl />
+      <EditControl />
     </>
   )
 }

@@ -7,8 +7,7 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import DeleteIcon from '@mui/icons-material/DeleteOutlined'
-import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined'
+import { Trash, CheckCircle } from '@phosphor-icons/react'
 import { CmsGetSet } from './SpenpoLanding'
 import { LandingPageContext } from '../context/landingPage'
 
@@ -53,7 +52,7 @@ export const EditableText: React.FC<{
       />
       {!hideBtn && (
         <IconButton sx={{ my: 'auto' }} onClick={confirm}>
-          {editableText ? <CheckCircleOutlinedIcon /> : <DeleteIcon />}
+          {editableText ? <CheckCircle /> : <Trash />}
         </IconButton>
       )}
     </Stack>

@@ -2,7 +2,7 @@ import { Box } from '@mui/material'
 import React, { useContext } from 'react'
 import { LandingPageContext } from '../context/landingPage'
 import { useDropzone } from 'react-dropzone'
-import UploadIcon from '@mui/icons-material/Upload'
+import { UploadSimple } from '@phosphor-icons/react'
 // import { ShoppingCartContext } from '@/context/shoppingCart'
 
 export const Headshot: React.FC = () => {
@@ -63,12 +63,7 @@ export const Headshot: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <UploadIcon
-          sx={{
-            fontSize: 50,
-            position: 'absolute',
-          }}
-        />
+        <UploadSimple size={50} />
       </Box>
     </>
   ) : (

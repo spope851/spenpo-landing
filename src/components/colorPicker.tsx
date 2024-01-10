@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Chip, Stack, SxProps } from '@mui/material'
 import { ChromePicker } from 'react-color'
-import CircleIcon from '@mui/icons-material/Circle'
+import { Circle } from '@phosphor-icons/react'
 
 const popover = {
   position: 'absolute',
@@ -29,9 +29,7 @@ export const ColorPicker: React.FC<{
         sx={sx}
         label={label}
         deleteIcon={
-          <CircleIcon
-            sx={{ fill: color || defaultColor, stroke: '#fff', strokeWidth: 2 }}
-          />
+          <Circle fill={color || defaultColor} stroke="#fff" strokeWidth={2} />
         }
         onDelete={() => 0}
         clickable

@@ -1,6 +1,5 @@
 import { LandingCms, LandingProps } from '../components/SpenpoLanding'
 import { DEFAULT_PROPS } from '../constants'
-import { SxProps } from '@mui/material'
 import React, {
   Dispatch,
   ReactNode,
@@ -34,7 +33,6 @@ export type LandingPageContextProps = {
   SOCIAL_URLS?: string[]
   LINK_NEW_TAB?: boolean
   TopComponents?: ReactNode
-  ADD_BTN_SX: SxProps
   cms?: LandingCms
   editable: LandingProps['editable']
 }
@@ -130,16 +128,6 @@ export const LandingPageContextProvider: React.FC<{
     if (!hideButtons[0]) return topComponents
   }, [hideButtons])
 
-  const ADD_BTN_SX = {
-    stroke: ACCENT_COLOR,
-    fill: ACCENT_COLOR,
-    ':hover': {
-      transform: 'scale(1.08)',
-      stroke: SECONDARY_ACCENT_COLOR,
-      fill: SECONDARY_ACCENT_COLOR,
-    },
-  }
-
   const contextValue: LandingPageContextProps = useMemo(() => {
     const cachable = {
       ACCENT_COLOR,
@@ -194,7 +182,6 @@ export const LandingPageContextProvider: React.FC<{
       editActionStatement,
       editDestination,
       TopComponents,
-      ADD_BTN_SX,
       cms,
       editable,
     }
@@ -220,7 +207,6 @@ export const LandingPageContextProvider: React.FC<{
     SOCIAL_URLS,
     LINK_NEW_TAB,
     TopComponents,
-    ADD_BTN_SX,
     cms,
     editable,
   ])

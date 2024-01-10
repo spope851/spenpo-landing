@@ -26,7 +26,9 @@ const DEFAULT_PROPS = {
     'https://whatsapp.com',
   ],
   ACTION_STATEMENT: 'your action statement',
-  HEADSHOT_FILENAME: 'headshot.jpeg',
+  ACTION_DESTINATION: 'https://www.spenpo.com',
+  HEADSHOT_FILENAME:
+    'https://www.pngitem.com/pimgs/m/618-6183618_transparent-unknown-person-png-transparent-background-female-user.png',
   LINK_NEW_TAB: true,
 }
 

@@ -5,20 +5,23 @@ import {
   IconButton,
   Radio,
   Stack,
+  SvgIcon,
   TextField,
   Tooltip,
 } from '@mui/material'
-import React, { forwardRef, useContext } from 'react'
-import AdsClickIcon from '@mui/icons-material/AdsClick'
+import React, { forwardRef, useContext, useEffect, useRef } from 'react'
 // import { useRouter } from "next/router"
 import { EditableText } from './editableText'
 import { ICON_BTN_TOOLTIP_PROPS } from '../constants'
 import { LandingPageContext } from '../context/landingPage'
-import InfoIcon from '@mui/icons-material/Info'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
-import EditIcon from '@mui/icons-material/Edit'
-import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined'
-import DeleteIcon from '@mui/icons-material/DeleteOutlined'
+import {
+  PlusCircle,
+  PencilSimple,
+  Trash,
+  CheckCircle,
+  Info,
+  CursorClick,
+} from '@phosphor-icons/react'
 
 const Btn: React.FC = forwardRef<HTMLButtonElement | null>(({ ...props }, ref) => {
   const {
@@ -33,16 +36,25 @@ const Btn: React.FC = forwardRef<HTMLButtonElement | null>(({ ...props }, ref) =
     cms,
   } = useContext(LandingPageContext)
   // const router = useRouter()
-  const onClick = () =>
-    LINK_NEW_TAB
-      ? window.open(ACTION_DESTINATION, '_blank', 'noopener,noreferrer')
-      : ACTION_DESTINATION && alert('somethings supposed to happen') //router.push(ACTION_DESTINATION)
+  const onClick = useRef(() => {
+    if (LINK_NEW_TAB) {
+      console.log('somethings supposed to happen')
+    } else if (ACTION_DESTINATION) console.log('somethings supposed to happen') //router.push(ACTION_DESTINATION)
+  })
+
+  useEffect(() => {
+    onClick.current = () => {
+      if (LINK_NEW_TAB) {
+        window.open(ACTION_DESTINATION, '_blank', 'noopener,noreferrer')
+      } else if (ACTION_DESTINATION) alert('somethings supposed to happen') //router.push(ACTION_DESTINATION)
+    }
+  }, [])
 
   return (
     <Button
       {...props}
       ref={ref}
-      startIcon={<AdsClickIcon />}
+      startIcon={<CursorClick />}
       sx={{
         mx: 'auto',
         py: 2,
@@ -55,7 +67,8 @@ const Btn: React.FC = forwardRef<HTMLButtonElement | null>(({ ...props }, ref) =
       size="large"
       variant="contained"
       onClick={(e) => {
-        if (!editable?.[0]) ACTION_DESTINATION ? onClick() : alert('your action')
+        if (!editable?.[0])
+          ACTION_DESTINATION ? onClick.current() : alert('your action')
         else e.preventDefault()
       }}
     >
@@ -81,7 +94,6 @@ export const ActionBtn: React.FC = () => {
     editActionStatement,
     confirmActionStatement,
     LINK_NEW_TAB,
-    ADD_BTN_SX,
   } = useContext(LandingPageContext)
 
   return (
@@ -93,7 +105,7 @@ export const ActionBtn: React.FC = () => {
               componentsProps={ICON_BTN_TOOLTIP_PROPS}
               title={
                 <IconButton onClick={() => setEditDestination(!editDestination)}>
-                  <EditIcon />
+                  <PencilSimple />
                 </IconButton>
               }
               placement="left"
@@ -109,11 +121,7 @@ export const ActionBtn: React.FC = () => {
                         else cms?.actionStatement.setter(undefined)
                       }}
                     >
-                      {editActionStatement[0] ? (
-                        <CheckCircleOutlinedIcon />
-                      ) : (
-                        <DeleteIcon />
-                      )}
+                      {editActionStatement[0] ? <CheckCircle /> : <Trash />}
                     </IconButton>
                   }
                   placement="right"
@@ -139,7 +147,9 @@ export const ActionBtn: React.FC = () => {
                 InputProps={{
                   endAdornment: (
                     <Tooltip title="Add the URL you want to navigate to from your landing page, or leave this field blank if you'd like to integrate an alternative flow. We'll reach out about that separately.">
-                      <InfoIcon sx={{ fill: '#555' }} />
+                      <SvgIcon sx={{ fill: '#555' }}>
+                        <Info />
+                      </SvgIcon>
                     </Tooltip>
                   ),
                 }}
@@ -179,7 +189,7 @@ export const ActionBtn: React.FC = () => {
                   setEditDestination(false)
                 }}
               >
-                {ACTION_DESTINATION ? <CheckCircleOutlinedIcon /> : <DeleteIcon />}
+                {ACTION_DESTINATION ? <CheckCircle /> : <Trash />}
               </IconButton>
             </Stack>
           </Stack>
@@ -192,12 +202,10 @@ export const ActionBtn: React.FC = () => {
             onClick={() => cms?.actionStatement.setter('your action statement')}
             sx={{ mx: 'auto', my: 1 }}
           >
-            <AddCircleOutlineIcon sx={ADD_BTN_SX} />
+            <PlusCircle />
           </IconButton>
         </Tooltip>
       )}
     </>
   )
 }
-
-Btn.displayName = 'Btn'

@@ -2,11 +2,9 @@ import { Box, IconButton, Stack, TextField, Tooltip } from '@mui/material'
 import React, { Fragment, useContext } from 'react'
 import { ICON_BTN_TOOLTIP_PROPS } from '../constants'
 import { LandingPageContext } from '../context/landingPage'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
-import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined'
-import DeleteIcon from '@mui/icons-material/DeleteOutlined'
 import { SOCIAL_ICON_SX } from '../functions'
 import { SocialBtn } from './socialBtn'
+import { PlusCircle, Trash, CheckCircle } from '@phosphor-icons/react'
 
 export const Socials: React.FC = () => {
   const {
@@ -17,7 +15,6 @@ export const Socials: React.FC = () => {
     cms,
     newSocial: [newSocial, setNewSocial],
     hideNewSocial: [hideNewSocial, setHideNewSocial],
-    ADD_BTN_SX,
   } = useContext(LandingPageContext)
 
   return (
@@ -34,36 +31,36 @@ export const Socials: React.FC = () => {
       >
         {SOCIAL_URLS?.map((url) => {
           const icon = <SocialBtn url={url} color={SECONDARY_ACCENT_COLOR} />
-          return cms && editable && editable[0] ? (
-            <Tooltip key={url} title={url} placement="top">
-              <Box>
-                <Tooltip
-                  componentsProps={ICON_BTN_TOOLTIP_PROPS}
-                  title={
-                    <IconButton
-                      sx={{ mt: -1.5 }}
-                      onClick={() => {
-                        cms.socialUrls.setter(
-                          SOCIAL_URLS.filter((social) => social !== url)
-                        )
-                      }}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  }
-                >
-                  {icon}
-                </Tooltip>
-              </Box>
-            </Tooltip>
-          ) : (
-            <Fragment key={url}>{icon}</Fragment>
-          )
+          if (cms && editable && editable[0])
+            return (
+              <Tooltip key={url} title={url} placement="top">
+                <Box>
+                  <Tooltip
+                    componentsProps={ICON_BTN_TOOLTIP_PROPS}
+                    title={
+                      <IconButton
+                        sx={{ mt: -1.5 }}
+                        onClick={() => {
+                          cms.socialUrls.setter(
+                            SOCIAL_URLS.filter((social) => social !== url)
+                          )
+                        }}
+                      >
+                        <Trash />
+                      </IconButton>
+                    }
+                  >
+                    {icon}
+                  </Tooltip>
+                </Box>
+              </Tooltip>
+            )
+          return <Fragment key={url}>{icon}</Fragment>
         })}
         {newSocial && <SocialBtn url={newSocial} color={SECONDARY_ACCENT_COLOR} />}
         {cms && editable && editable[0] && (
           <IconButton onClick={() => setHideNewSocial(false)}>
-            <AddCircleOutlineIcon sx={ADD_BTN_SX} />
+            <PlusCircle />
           </IconButton>
         )}
       </Stack>
@@ -87,7 +84,7 @@ export const Socials: React.FC = () => {
               setHideNewSocial(true)
             }}
           >
-            {newSocial ? <CheckCircleOutlinedIcon /> : <DeleteIcon />}
+            {newSocial ? <CheckCircle /> : <Trash />}
           </IconButton>
         </Stack>
       )}
