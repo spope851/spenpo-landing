@@ -8,8 +8,6 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-// import { UnAuthContext } from "./unAuth"
-// import { useSession } from "next-auth/react"
 
 export type LandingPageContextProps = {
   hideButtons: [boolean, Dispatch<SetStateAction<boolean>>]
@@ -17,9 +15,6 @@ export type LandingPageContextProps = {
   hideNewSocial: [boolean, Dispatch<SetStateAction<boolean>>]
   newBackground: [string, Dispatch<SetStateAction<string>>]
   hideNewBackground: [boolean, Dispatch<SetStateAction<boolean>>]
-  confirmActionStatement: [boolean, Dispatch<SetStateAction<boolean>>]
-  editActionStatement: [boolean, Dispatch<SetStateAction<boolean>>]
-  editDestination: [boolean, Dispatch<SetStateAction<boolean>>]
   ACCENT_COLOR: string
   SECONDARY_ACCENT_COLOR: string
   ACTION_STATEMENT?: string
@@ -63,16 +58,11 @@ export const LandingPageContextProvider: React.FC<{
     cache,
   },
 }) => {
-  // const { redisId } = useContext(UnAuthContext)
-  // const session = useSession()
   const hideButtons = useState(false)
   const newSocial = useState('')
   const hideNewSocial = useState(true)
   const newBackground = useState('')
   const hideNewBackground = useState(true)
-  const confirmActionStatement = useState(false)
-  const editActionStatement = useState(false)
-  const editDestination = useState(false)
 
   const cacheOrDefault = (key: 'LINK_NEW_TAB' | 'SOCIAL_URLS') => {
     if (!!cache?.[key]) {
@@ -178,9 +168,6 @@ export const LandingPageContextProvider: React.FC<{
       hideNewSocial,
       newBackground,
       hideNewBackground,
-      confirmActionStatement,
-      editActionStatement,
-      editDestination,
       TopComponents,
       cms,
       editable,
@@ -191,9 +178,6 @@ export const LandingPageContextProvider: React.FC<{
     hideNewSocial,
     newBackground,
     hideNewBackground,
-    confirmActionStatement,
-    editActionStatement,
-    editDestination,
     ACCENT_COLOR,
     SECONDARY_ACCENT_COLOR,
     ACTION_STATEMENT,

@@ -42,6 +42,7 @@ export const Info: React.FC = () => {
         }}
         label="Name"
         text={NAME}
+        editHeight={72}
       />
       <EditableText
         getSet={cms?.subtitle}

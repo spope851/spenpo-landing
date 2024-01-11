@@ -29,7 +29,15 @@ export const ColorPicker: React.FC<{
         sx={sx}
         label={label}
         deleteIcon={
-          <Circle fill={color || defaultColor} stroke="#fff" strokeWidth={2} />
+          <Circle
+            style={{
+              backgroundColor: color,
+              borderRadius: '50%',
+            }}
+            fill={color || defaultColor}
+            stroke={color || defaultColor}
+            strokeWidth={2}
+          />
         }
         onDelete={() => 0}
         clickable

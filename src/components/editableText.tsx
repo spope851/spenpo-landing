@@ -1,25 +1,17 @@
 import { Stack, IconButton, SxProps, TextField, Typography } from '@mui/material'
-import React, {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
-import { Trash, CheckCircle } from '@phosphor-icons/react'
+import React, { useCallback, useContext, useState } from 'react'
+import { Trash, CheckCircle, PencilSimple } from '@phosphor-icons/react'
 import { CmsGetSet } from './SpenpoLanding'
 import { LandingPageContext } from '../context/landingPage'
 
 export const EditableText: React.FC<{
-  confirmEvent?: [boolean, Dispatch<SetStateAction<boolean>>]
-  editActionStatement?: [boolean, Dispatch<SetStateAction<boolean>>]
   hideBtn?: boolean
   getSet?: CmsGetSet | CmsGetSet<string | undefined>
   label: string
   text?: string
   sx?: SxProps & { lineHeight: string }
-}> = ({ label, getSet, sx, text, hideBtn, confirmEvent, editActionStatement }) => {
+  editHeight?: number
+}> = ({ label, getSet, sx, text, hideBtn, editHeight }) => {
   const { SECONDARY_ACCENT_COLOR, editable } = useContext(LandingPageContext)
   const [edit, setEdit] = useState(false)
   const [editableText, setEditableText] = useState<string | undefined>(text)
@@ -30,19 +22,8 @@ export const EditableText: React.FC<{
     setEdit(false)
   }, [editableText])
 
-  useEffect(() => {
-    if (hideBtn && confirmEvent && confirmEvent[0]) {
-      confirm()
-      confirmEvent[1](false)
-    }
-  }, [confirmEvent])
-
-  useEffect(() => {
-    if (editActionStatement) editActionStatement[1](edit)
-  }, [edit])
-
   return edit ? (
-    <Stack direction="row" columnGap={1}>
+    <Stack direction="row" columnGap={1} height={editHeight} alignItems="center">
       <TextField
         size="small"
         fullWidth
@@ -57,23 +38,30 @@ export const EditableText: React.FC<{
       )}
     </Stack>
   ) : (
-    <Typography
-      sx={{
-        ':hover':
-          editable && editable[0]
-            ? {
-                outline: `dashed ${SECONDARY_ACCENT_COLOR} 2px`,
-                borderRadius: 2,
-                cursor: 'pointer',
-              }
-            : {},
-        mx: 'auto',
-        px: 1,
-        ...sx,
-      }}
-      onClick={() => editable?.[0] && setEdit(true)}
-    >
-      {text}
-    </Typography>
+    <Stack direction="row" columnGap={1}>
+      <Typography
+        sx={{
+          ':hover':
+            editable && editable[0]
+              ? {
+                  outline: `dashed ${SECONDARY_ACCENT_COLOR} 2px`,
+                  borderRadius: 2,
+                  cursor: 'pointer',
+                }
+              : {},
+          mx: 'auto',
+          px: 1,
+          ...sx,
+        }}
+        onClick={() => editable?.[0] && setEdit(true)}
+      >
+        {text}
+      </Typography>
+      {editable?.[0] && (
+        <IconButton sx={{ my: 'auto' }} onClick={() => setEdit(true)}>
+          <PencilSimple />
+        </IconButton>
+      )}
+    </Stack>
   )
 }

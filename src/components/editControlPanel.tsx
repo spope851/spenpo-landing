@@ -7,7 +7,6 @@ import {
   Eye,
   EyeSlash,
   PencilSimple,
-  PencilSimpleSlash,
   ImageSquare,
   Trash,
   CheckCircle,
@@ -27,7 +26,7 @@ const VisibilityControl: React.FC = () => {
         sx={{ position: 'absolute', right: 0 }}
         onClick={() => setHideButtons(!hideButtons)}
       >
-        {hideButtons ? <EyeSlash /> : <Eye />}
+        {hideButtons ? <Eye /> : <EyeSlash />}
       </IconButton>
     </Tooltip>
   )
@@ -50,7 +49,7 @@ const EditControl: React.FC = () => {
           if (editable) editable[1]((prev) => !prev)
         }}
       >
-        {editable?.[0] ? <PencilSimple /> : <PencilSimpleSlash />}
+        {editable?.[0] ? <CheckCircle /> : <PencilSimple />}
       </IconButton>
     </Tooltip>
   )
