@@ -25,7 +25,7 @@ export type LandingCms = {
   actionDestination: CmsGetSet
   actionStatement: CmsGetSet
   headshotSrc: CmsGetSet
-  headshotFile: CmsGetSet<File>
+  headshotFile: CmsGetSet<File | undefined>
   linkNewTab: CmsGetSet<boolean>
 }
 
