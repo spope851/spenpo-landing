@@ -51,6 +51,7 @@ export interface LandingProps extends LandingPage {
   editable?: [boolean, Dispatch<SetStateAction<boolean>>]
   cms?: LandingCms
   cache?: LandingCache
+  cacheCallback?: (cache: LandingCache) => Promise<void>
 }
 
 export const SpenpoLanding: React.FC<LandingProps> = (props) => {

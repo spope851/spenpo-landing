@@ -26,6 +26,8 @@ export type {
 //   const editable = useState(false)
 //   return (
 //     <SpenpoLanding
+//       cache={{}}
+//       cacheCallback={async () => {}}
 //       cms={
 //         {
 //           title: {

@@ -56,6 +56,7 @@ export const LandingPageContextProvider: React.FC<{
     editable,
     cms,
     cache,
+    cacheCallback,
   },
 }) => {
   const hideButtons = useState(false)
@@ -133,18 +134,19 @@ export const LandingPageContextProvider: React.FC<{
       LINK_NEW_TAB,
     }
 
-    // const cache = {
-    //   ...cachable,
-    //   SOCIAL_URLS: JSON.stringify(SOCIAL_URLS),
-    //   hideButtons: hideButtons[0],
-    //   newSocial: newSocial[0],
-    //   hideNewSocial: hideNewSocial[0],
-    //   newBackground: newBackground[0],
-    //   hideNewBackground: hideNewBackground[0],
-    //   confirmActionStatement: confirmActionStatement[0],
-    //   editActionStatement: editActionStatement[0],
-    //   editDestination: editDestination[0],
-    // }
+    const cache = {
+      ...cachable,
+      SOCIAL_URLS: JSON.stringify(SOCIAL_URLS),
+      hideButtons: JSON.stringify(hideButtons[0]),
+      newSocial: newSocial[0],
+      hideNewSocial: JSON.stringify(hideNewSocial[0]),
+      newBackground: newBackground[0],
+      hideNewBackground: JSON.stringify(hideNewBackground[0]),
+    }
+
+    if (cacheCallback) {
+      ;(async () => await cacheCallback(cache))()
+    }
 
     // if (session.status === "unauthenticated") {
     //   ;(async () =>
