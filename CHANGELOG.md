@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## 2.0.7
+
+### Patch Changes
+
+- 3e34fe1: add side effect to actionBtn when ACTION_DESTINATION changes. add id to headshot DOM element.
+
 ## 2.0.6
 
 ### Patch Changes
