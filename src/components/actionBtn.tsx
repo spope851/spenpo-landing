@@ -23,7 +23,7 @@ const Btn: React.FC = forwardRef<HTMLButtonElement | null>(({ ...props }, ref) =
     onClick.current = () => {
       window.open(ACTION_DESTINATION, '_blank', 'noopener,noreferrer')
     }
-  }, [])
+  }, [ACTION_DESTINATION])
 
   return (
     <Button

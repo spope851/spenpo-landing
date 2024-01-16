@@ -1,10 +1,12 @@
-## 2.0.5
+## CHANGELOG
 
 ## 2.0.6
 
 ### Patch Changes
 
 - 5380aa3: remove linkNewTab prop from type declarations
+
+## 2.0.5
 
 ### Patch Changes
 

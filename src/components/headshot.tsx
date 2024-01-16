@@ -9,6 +9,7 @@ export const Headshot: React.FC = () => {
     useContext(LandingPageContext)
 
   const BOX_PROPS = {
+    id: 'spenpo-landing-headshot',
     height: { md: 480, xs: 'unset' },
     width: { md: 480, xs: '100%' },
     borderRadius: 1,

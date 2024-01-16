@@ -90,12 +90,6 @@ export type {
 //             },
 //             getter: () => DEFAULT_PROPS.ACTION_DESTINATION,
 //           },
-//           linkNewTab: {
-//             setter: (_prop?: boolean) => {
-//               console.log(_prop)
-//             },
-//             getter: () => false,
-//           },
 //           headshotSrc: {
 //             setter: (_prop?: string) => {
 //               console.log(_prop)
