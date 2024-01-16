@@ -9,7 +9,6 @@ export const LandingWrapper: React.FC<{ children: ReactNode }> = ({ children }) 
   return (
     <Box
       component="main"
-      id="spenpo-landing-wrapper"
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -24,6 +23,7 @@ export const LandingWrapper: React.FC<{ children: ReactNode }> = ({ children }) 
     >
       {TopComponents}
       <Stack
+        id="spenpo-landing-wrapper"
         justifyContent="center"
         alignItems="center"
         columnGap={10}
