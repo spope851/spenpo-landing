@@ -148,20 +148,6 @@ export const LandingPageContextProvider: React.FC<{
       ;(async () => await cacheCallback(cache))()
     }
 
-    // if (session.status === "unauthenticated") {
-    //   ;(async () =>
-    //     fetch("/api/cache/unAuthLanding", {
-    //       body: JSON.stringify({ cache, id: redisId }),
-    //       method: "post",
-    //     }))()
-    // } else if (session.status === "authenticated") {
-    //   ;(async () =>
-    //     fetch("/api/cache/authLanding", {
-    //       body: JSON.stringify(cache),
-    //       method: "post",
-    //     }))()
-    // }
-
     return {
       ...cachable,
       SOCIAL_URLS,

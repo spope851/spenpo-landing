@@ -53,12 +53,12 @@ const Btn: React.FC = forwardRef<HTMLButtonElement | null>(({ ...props }, ref) =
 })
 
 export const ActionBtn: React.FC = () => {
-  const { editable, cms } = useContext(LandingPageContext)
+  const { editable, cms, ACTION_STATEMENT } = useContext(LandingPageContext)
   const [edit, setEdit] = useState(false)
 
   return (
     <>
-      {cms?.actionStatement.getter() &&
+      {ACTION_STATEMENT &&
         (editable?.[0] ? (
           <Stack gap={3}>
             <Stack direction="row">
