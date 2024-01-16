@@ -1,5 +1,11 @@
 ## 2.0.5
 
+## 2.0.6
+
+### Patch Changes
+
+- 5380aa3: remove linkNewTab prop from type declarations
+
 ### Patch Changes
 
 - 739f8a4: adjust action button conditional rendering. was only rendering when cms prop was present.
