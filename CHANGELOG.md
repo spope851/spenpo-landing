@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## 2.0.8
+
+### Patch Changes
+
+- f35a04a: add ids to editControlPanel components
+
 ## 2.0.7
 
 ### Patch Changes
