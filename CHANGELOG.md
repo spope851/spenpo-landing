@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## 2.0.10
+
+### Patch Changes
+
+- 276b91b: move wrapper id to inner Stack
+
 ## 2.0.9
 
 ### Patch Changes
