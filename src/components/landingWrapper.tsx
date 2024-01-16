@@ -9,6 +9,7 @@ export const LandingWrapper: React.FC<{ children: ReactNode }> = ({ children }) 
   return (
     <Box
       component="main"
+      id="spenpo-landing-wrapper"
       sx={{
         display: 'flex',
         flexDirection: 'column',
