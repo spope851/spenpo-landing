@@ -23,6 +23,7 @@ const VisibilityControl: React.FC = () => {
   return (
     <Tooltip title={`${hideButtons ? 'show' : 'hide'} extra buttons`}>
       <IconButton
+        id="spenpo-landing-visibilityControl"
         sx={{ position: 'absolute', right: 0 }}
         onClick={() => setHideButtons(!hideButtons)}
       >
@@ -40,6 +41,7 @@ const EditControl: React.FC = () => {
   return (
     <Tooltip title={editable?.[0] ? 'preview' : 'edit'}>
       <IconButton
+        id="spenpo-landing-editControl"
         sx={{
           position: 'absolute',
           right: 40,
@@ -142,13 +144,15 @@ export const EditControlPanel: React.FC = () => {
   const [open, setOpen] = useState(false)
   const { editable } = useContext(LandingPageContext)
   return (
-    <>
+    <Box position="absolute" id="spenpo-landing-editControlPanel" width="100%">
       <Box
+        id="spenpo-landing-contentControl-desktop"
         display={{ xl: 'block', lg: 'block', md: 'block', sm: 'block', xs: 'none' }}
       >
         <ContentControl />
       </Box>
       <IconButton
+        id="spenpo-landing-contentControl-open-btn"
         onClick={() => setOpen(true)}
         sx={{
           position: 'absolute',
@@ -159,11 +163,16 @@ export const EditControlPanel: React.FC = () => {
       >
         <CaretDoubleDown />
       </IconButton>
-      <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
+      <Drawer
+        id="spenpo-landing-contentControl-mobile"
+        anchor="top"
+        open={open}
+        onClose={() => setOpen(false)}
+      >
         <ContentControl />
       </Drawer>
       <VisibilityControl />
       <EditControl />
-    </>
+    </Box>
   )
 }
