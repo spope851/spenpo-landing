@@ -1,5 +1,3 @@
-## 0.0.0 - 2024-01-06
-
 ## 2.0.5
 
 ### Patch Changes
@@ -11,6 +9,8 @@
 ### Patch Changes
 
 - eab7b6b: add cacheCallback prop to update the consumers cache when the context value changes
+
+## 2.0.0
 
 ### Added
 

@@ -26,7 +26,6 @@ export type LandingPageContextProps = {
   NAME?: string
   SUBTITLE?: string
   SOCIAL_URLS?: string[]
-  LINK_NEW_TAB?: boolean
   TopComponents?: ReactNode
   cms?: LandingCms
   editable: LandingProps['editable']
@@ -51,7 +50,6 @@ export const LandingPageContextProvider: React.FC<{
     name,
     subtitle,
     socialUrls,
-    linkNewTab,
     topComponents,
     editable,
     cms,
@@ -65,7 +63,7 @@ export const LandingPageContextProvider: React.FC<{
   const newBackground = useState('')
   const hideNewBackground = useState(true)
 
-  const cacheOrDefault = (key: 'LINK_NEW_TAB' | 'SOCIAL_URLS') => {
+  const cacheOrDefault = (key: 'SOCIAL_URLS') => {
     if (!!cache?.[key]) {
       try {
         return JSON.parse(String(cache[key]))
@@ -111,10 +109,6 @@ export const LandingPageContextProvider: React.FC<{
     cms?.subtitle.getter() || subtitle || cache?.SUBTITLE || DEFAULT_PROPS.SUBTITLE
   const SOCIAL_URLS =
     cms?.socialUrls.getter() || socialUrls || cacheOrDefault('SOCIAL_URLS')
-
-  const LINK_NEW_TAB =
-    cms?.linkNewTab.getter() || linkNewTab || cacheOrDefault('LINK_NEW_TAB')
-
   const TopComponents = useMemo(() => {
     if (!hideButtons[0]) return topComponents
   }, [hideButtons])
@@ -131,7 +125,6 @@ export const LandingPageContextProvider: React.FC<{
       TITLE,
       NAME,
       SUBTITLE,
-      LINK_NEW_TAB,
     }
 
     const cache = {
@@ -177,7 +170,6 @@ export const LandingPageContextProvider: React.FC<{
     NAME,
     SUBTITLE,
     SOCIAL_URLS,
-    LINK_NEW_TAB,
     TopComponents,
     cms,
     editable,

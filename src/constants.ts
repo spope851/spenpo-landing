@@ -29,7 +29,6 @@ const DEFAULT_PROPS = {
   ACTION_DESTINATION: 'https://www.spenpo.com',
   HEADSHOT_FILENAME:
     'https://www.pngitem.com/pimgs/m/618-6183618_transparent-unknown-person-png-transparent-background-female-user.png',
-  LINK_NEW_TAB: true,
 }
 
 export { ICON_BTN_TOOLTIP_PROPS, DEFAULT_PROPS }

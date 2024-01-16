@@ -26,7 +26,6 @@ export type LandingCms = {
   actionStatement: CmsGetSet
   headshotSrc: CmsGetSet
   headshotFile: CmsGetSet<File | undefined>
-  linkNewTab: CmsGetSet<boolean>
 }
 
 export interface LandingPage {
@@ -41,7 +40,6 @@ export interface LandingPage {
   headshotSrc?: string
   actionDestination?: string
   actionStatement?: string
-  linkNewTab?: boolean
 }
 
 export type LandingCache = Partial<Record<keyof LandingPageContextProps, string>>
