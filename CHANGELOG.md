@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## 2.0.11
+
+### Patch Changes
+
+- 419d2a6: update readme
+
 ## 2.0.10
 
 ### Patch Changes
