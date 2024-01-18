@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## 2.0.12
+
+### Patch Changes
+
+- 939460e: adjust styling of readme
+
 ## 2.0.11
 
 ### Patch Changes
