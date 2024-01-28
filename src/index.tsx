@@ -27,7 +27,9 @@ export type {
 //   return (
 //     <SpenpoLanding
 //       cache={{}}
-//       cacheCallback={async () => {}}
+//       cacheCallback={async (cache) => {
+//         console.log(cache)
+//       }}
 //       cms={
 //         {
 //           title: {
@@ -99,7 +101,6 @@ export type {
 //         } as LandingCms
 //       }
 //       editable={editable}
-//       headshotSrc="https://www.pngitem.com/pimgs/m/618-6183618_transparent-unknown-person-png-transparent-background-female-user.png"
 //     />
 //   )
 // }
