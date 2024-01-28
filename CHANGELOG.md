@@ -1,5 +1,12 @@
 ## CHANGELOG
 
+## 2.0.14
+
+### Patch Changes
+
+- 8294ac3: default headshot to DEFAULT_PROPS constant instead of local file
+- 6b33fbc: update link to full stack demo
+
 ## 2.0.13
 
 ### Patch Changes
