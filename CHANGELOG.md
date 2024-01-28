@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## 2.0.13
+
+### Patch Changes
+
+- db3d7b5: replace default bgimgae and headshot with absolute urls I trust
+
 ## 2.0.12
 
 ### Patch Changes
