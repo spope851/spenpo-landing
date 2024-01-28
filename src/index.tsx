@@ -96,7 +96,7 @@ export type {
 //             setter: (_prop?: string) => {
 //               console.log(_prop)
 //             },
-//             getter: () => DEFAULT_PROPS.HEADSHOT_FILENAME,
+//             getter: () => DEFAULT_PROPS.HEADSHOT_SRC,
 //           },
 //         } as LandingCms
 //       }

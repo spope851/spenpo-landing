@@ -14,7 +14,7 @@ export const Headshot: React.FC = () => {
     width: { md: 480, xs: '100%' },
     borderRadius: 1,
     sx: {
-      backgroundImage: `url(${HEADSHOT_SRC || '/images/headshot.jpeg'})`,
+      backgroundImage: `url(${HEADSHOT_SRC})`,
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',

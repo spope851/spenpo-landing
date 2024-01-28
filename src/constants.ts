@@ -26,7 +26,7 @@ const DEFAULT_PROPS = {
   ],
   ACTION_STATEMENT: 'your action statement',
   ACTION_DESTINATION: 'https://www.spenpo.com',
-  HEADSHOT_FILENAME: 'https://spenpo-landing.vercel.app/default.svg',
+  HEADSHOT_SRC: 'https://spenpo-landing.vercel.app/default.svg',
 }
 
 export { ICON_BTN_TOOLTIP_PROPS, DEFAULT_PROPS }

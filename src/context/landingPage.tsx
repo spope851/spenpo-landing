@@ -102,7 +102,10 @@ export const LandingPageContextProvider: React.FC<{
     cache?.BACKGROUND_COLOR ||
     DEFAULT_PROPS.BACKGROUND_COLOR
   const HEADSHOT_SRC =
-    cms?.headshotSrc.getter() || headshotSrc || cache?.HEADSHOT_SRC
+    cms?.headshotSrc.getter() ||
+    headshotSrc ||
+    cache?.HEADSHOT_SRC ||
+    DEFAULT_PROPS.HEADSHOT_SRC
   const TITLE = cms?.title.getter() || title || cache?.TITLE || DEFAULT_PROPS.TITLE
   const NAME = cms?.name.getter() || name || cache?.NAME || DEFAULT_PROPS.NAME
   const SUBTITLE =
