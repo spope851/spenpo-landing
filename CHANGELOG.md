@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## 2.0.16
+
+### Patch Changes
+
+- 2447e04: render edit and remove buttons on social icons normally instead of in tooltips
+
 ## 2.0.15
 
 ### Patch Changes
