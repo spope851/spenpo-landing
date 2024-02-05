@@ -1,4 +1,4 @@
-import { LandingCms, LandingProps } from '../components/SpenpoLanding'
+import { CmsGetSet, LandingCms, LandingProps } from '../components/SpenpoLanding'
 import { DEFAULT_PROPS } from '../constants'
 import React, {
   Dispatch,
@@ -22,6 +22,7 @@ export type LandingPageContextProps = {
   BACKGROUND_IMAGE: string
   BACKGROUND_COLOR: string
   HEADSHOT_SRC?: string
+  HEADSHOT_FILE?: File
   TITLE?: string
   NAME?: string
   SUBTITLE?: string
@@ -63,55 +64,110 @@ export const LandingPageContextProvider: React.FC<{
   const newBackground = useState('')
   const hideNewBackground = useState(true)
 
-  const cacheOrDefault = (key: 'SOCIAL_URLS') => {
+  const cachedJSON = (key: 'SOCIAL_URLS') => {
     if (!!cache?.[key]) {
       try {
-        return JSON.parse(String(cache[key]))
+        const attempt = JSON.parse(String(cache[key]))
+        return attempt
       } catch (err) {
         console.log(err)
+        return undefined
       }
     }
-    return DEFAULT_PROPS[key]
+  }
+
+  const returnString = (
+    getSet: CmsGetSet | undefined,
+    second: string | undefined,
+    third: string | undefined
+  ) => {
+    const first = getSet?.getter()
+    if (first || first === '') return first
+    else if (second || second === '') {
+      getSet?.setter(second)
+      return second
+    } else return third
   }
 
   const ACCENT_COLOR =
-    cms?.accentColor.getter() ||
-    accentColor ||
-    cache?.ACCENT_COLOR ||
+    returnString(cms?.accentColor, cache?.ACCENT_COLOR, accentColor) ||
     DEFAULT_PROPS.ACCENT_COLOR
+
   const SECONDARY_ACCENT_COLOR =
-    cms?.secondaryAccentColor.getter() ||
-    secondaryAccentColor ||
-    cache?.SECONDARY_ACCENT_COLOR ||
-    DEFAULT_PROPS.SECONDARY_ACCENT_COLOR
-  const ACTION_STATEMENT =
-    cms?.actionStatement.getter() ||
-    actionStatement ||
-    cache?.ACTION_STATEMENT ||
-    DEFAULT_PROPS.ACTION_STATEMENT
-  const ACTION_DESTINATION =
-    cms?.actionDestination.getter() || actionDestination || cache?.ACTION_DESTINATION
+    returnString(
+      cms?.secondaryAccentColor,
+      cache?.SECONDARY_ACCENT_COLOR,
+      secondaryAccentColor
+    ) || DEFAULT_PROPS.SECONDARY_ACCENT_COLOR
+
+  const ACTION_STATEMENT = returnString(
+    cms?.actionStatement,
+    cache?.ACTION_STATEMENT,
+    actionStatement
+  )
+
+  const ACTION_DESTINATION = returnString(
+    cms?.actionDestination,
+    cache?.ACTION_DESTINATION,
+    actionDestination
+  )
+
   const BACKGROUND_IMAGE =
-    cms?.backgroundImage.getter() ||
-    backgroundImage ||
-    cache?.BACKGROUND_IMAGE ||
+    returnString(cms?.backgroundImage, cache?.BACKGROUND_IMAGE, backgroundImage) ||
     DEFAULT_PROPS.BACKGROUND_IMAGE
+
   const BACKGROUND_COLOR =
-    cms?.backgroundColor.getter() ||
-    backgroundColor ||
-    cache?.BACKGROUND_COLOR ||
+    returnString(cms?.backgroundColor, cache?.BACKGROUND_COLOR, backgroundColor) ||
     DEFAULT_PROPS.BACKGROUND_COLOR
-  const HEADSHOT_SRC =
-    cms?.headshotSrc.getter() ||
-    headshotSrc ||
-    cache?.HEADSHOT_SRC ||
-    DEFAULT_PROPS.HEADSHOT_SRC
-  const TITLE = cms?.title.getter() || title || cache?.TITLE || DEFAULT_PROPS.TITLE
-  const NAME = cms?.name.getter() || name || cache?.NAME || DEFAULT_PROPS.NAME
-  const SUBTITLE =
-    cms?.subtitle.getter() || subtitle || cache?.SUBTITLE || DEFAULT_PROPS.SUBTITLE
-  const SOCIAL_URLS =
-    cms?.socialUrls.getter() || socialUrls || cacheOrDefault('SOCIAL_URLS')
+
+  const b64toBlob = (b64Data: string, contentType = '', sliceSize = 512) => {
+    const byteCharacters = atob(b64Data)
+    const byteArrays = []
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize)
+
+      const byteNumbers = new Array(slice.length)
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i)
+      }
+
+      const byteArray = new Uint8Array(byteNumbers)
+      byteArrays.push(byteArray)
+    }
+
+    const blob = new Blob(byteArrays, { type: contentType })
+    return blob
+  }
+
+  const HEADSHOT_SRC = (() => {
+    const first = cms?.headshotSrc.getter()
+    const second = cache?.HEADSHOT_FILE
+    if (first) return first
+    else if (second) {
+      const blob = b64toBlob(second)
+      const url = URL.createObjectURL(blob)
+      cms?.headshotSrc.setter(url)
+      return url
+    } else return headshotSrc
+  })()
+
+  const TITLE = returnString(cms?.title, cache?.TITLE, title)
+
+  const NAME = returnString(cms?.name, cache?.NAME, name)
+
+  const SUBTITLE = returnString(cms?.subtitle, cache?.SUBTITLE, subtitle)
+
+  const SOCIAL_URLS = (() => {
+    const first = cms?.socialUrls.getter()
+    const second = cachedJSON('SOCIAL_URLS')
+    if (first) return first
+    else if (second) {
+      cms?.socialUrls.setter(second)
+      return second
+    } else return socialUrls
+  })()
+
   const TopComponents = useMemo(() => {
     if (!hideButtons[0]) return topComponents
   }, [hideButtons])
@@ -128,6 +184,7 @@ export const LandingPageContextProvider: React.FC<{
       TITLE,
       NAME,
       SUBTITLE,
+      headshotFile: cms?.headshotFile.getter(),
     }
 
     const cache = {

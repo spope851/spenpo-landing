@@ -42,7 +42,9 @@ export interface LandingPage {
   actionStatement?: string
 }
 
-export type LandingCache = Partial<Record<keyof LandingPageContextProps, string>>
+export type LandingCache = Partial<Record<keyof LandingPageContextProps, string>> & {
+  headshotFile?: File
+}
 
 export interface LandingProps extends LandingPage {
   topComponents?: ReactNode

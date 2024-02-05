@@ -21,7 +21,7 @@
     "start": "react-scripts start",
     "build": "tsup src/index.tsx --format cjs,esm --dts",
     "release": "pnpm run build && changeset publish",
-    "lint": "eslint"
+    "lint": "eslint . --ext .tsx,.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",

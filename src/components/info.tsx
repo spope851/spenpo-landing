@@ -1,12 +1,14 @@
-import { Divider, Stack } from '@mui/material'
+import { Divider, IconButton, Stack, Tooltip } from '@mui/material'
 import React, { useContext } from 'react'
 import { LandingPageContext } from '../context/landingPage'
 import { ActionBtn } from './actionBtn'
 import { EditableText } from './editableText'
 import { Socials } from './socials'
+import { PlusCircle } from '@phosphor-icons/react'
 
 export const Info: React.FC = () => {
-  const { ACCENT_COLOR, cms, NAME, SUBTITLE, TITLE } = useContext(LandingPageContext)
+  const { ACCENT_COLOR, cms, NAME, SUBTITLE, TITLE, ACTION_STATEMENT, editable } =
+    useContext(LandingPageContext)
 
   return (
     <Stack
@@ -29,7 +31,9 @@ export const Info: React.FC = () => {
         label="Title"
         text={TITLE}
       />
-      <Divider sx={{ width: 50, borderBottomWidth: 'medium', mx: 'auto' }} />
+      {TITLE && (
+        <Divider sx={{ width: 50, borderBottomWidth: 'medium', mx: 'auto' }} />
+      )}
       <EditableText
         getSet={cms?.name}
         sx={{
@@ -56,7 +60,17 @@ export const Info: React.FC = () => {
         label="Subtitle"
         text={SUBTITLE}
       />
-      <ActionBtn />
+      {ACTION_STATEMENT && <ActionBtn />}
+      {!ACTION_STATEMENT && editable?.[0] && (
+        <Tooltip title="add action button">
+          <IconButton
+            onClick={() => cms?.actionStatement.setter('your action statement')}
+            sx={{ mx: 'auto', my: 1 }}
+          >
+            <PlusCircle />
+          </IconButton>
+        </Tooltip>
+      )}
       <Socials />
     </Stack>
   )

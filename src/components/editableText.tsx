@@ -1,8 +1,11 @@
 import { Stack, IconButton, SxProps, TextField, Typography } from '@mui/material'
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Trash, CheckCircle, PencilSimple } from '@phosphor-icons/react'
 import { CmsGetSet } from './SpenpoLanding'
 import { LandingPageContext } from '../context/landingPage'
+import TouchRipple, {
+  TouchRippleActions,
+} from '@mui/material/ButtonBase/TouchRipple'
 
 export const EditableText: React.FC<{
   hideBtn?: boolean
@@ -15,12 +18,8 @@ export const EditableText: React.FC<{
   const { SECONDARY_ACCENT_COLOR, editable } = useContext(LandingPageContext)
   const [edit, setEdit] = useState(false)
   const [editableText, setEditableText] = useState<string | undefined>(text)
-
-  const confirm = useCallback(() => {
-    if (editableText) getSet?.setter(editableText)
-    else setEditableText(text)
-    setEdit(false)
-  }, [editableText])
+  const rippleRef = React.useRef<TouchRippleActions | null>(null)
+  const [rippleEnabled, setRippleEnabled] = useState(false)
 
   return edit ? (
     <Stack direction="row" columnGap={1} height={editHeight} alignItems="center">
@@ -29,11 +28,29 @@ export const EditableText: React.FC<{
         fullWidth
         label={label}
         value={editableText}
-        onChange={(e) => setEditableText(e.target.value)}
+        onChange={(e) => {
+          if (e.target.value) {
+            if (!rippleEnabled) {
+              rippleRef.current?.start(e, { center: true, pulsate: true })
+              setRippleEnabled(true)
+            }
+          } else {
+            rippleRef.current?.stop()
+            setRippleEnabled(false)
+          }
+          setEditableText(e.target.value)
+        }}
       />
       {!hideBtn && (
-        <IconButton sx={{ my: 'auto' }} onClick={confirm}>
+        <IconButton
+          sx={{ my: 'auto' }}
+          onClick={() => {
+            getSet?.setter(editableText)
+            setEdit(false)
+          }}
+        >
           {editableText ? <CheckCircle /> : <Trash />}
+          <TouchRipple ref={rippleRef} />
         </IconButton>
       )}
     </Stack>

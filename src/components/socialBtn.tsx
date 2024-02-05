@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react'
 import { SocialIcon } from 'react-social-icons'
 import { SOCIAL_ICON_SX } from '../functions'
 
-export const SocialBtn: React.FC<{ url: string; color: string }> = forwardRef(
+export const SocialBtn: React.FC<{ url: string; color?: string }> = forwardRef(
   ({ url, color, ...rest }, ref) => {
     return (
       <Box
