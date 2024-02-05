@@ -1,6 +1,5 @@
-import { Box, IconButton, Stack, TextField, Tooltip } from '@mui/material'
+import { IconButton, Stack, TextField } from '@mui/material'
 import React, { Fragment, useContext, useState } from 'react'
-import { ICON_BTN_TOOLTIP_PROPS } from '../constants'
 import { LandingPageContext } from '../context/landingPage'
 import { SOCIAL_ICON_SX } from '../functions'
 import { SocialBtn } from './socialBtn'
@@ -28,7 +27,7 @@ export const Socials: React.FC = () => {
         useFlexGap
         flexWrap="wrap"
         flexDirection="row"
-        sx={{ ...SOCIAL_ICON_SX(ACCENT_COLOR), my: editable?.[0] ? 5 : 0 }}
+        sx={SOCIAL_ICON_SX(ACCENT_COLOR)}
         justifyContent="center"
         alignItems="center"
         columnGap={1}
@@ -40,38 +39,22 @@ export const Socials: React.FC = () => {
             const remove = () =>
               cms.socialUrls.setter(SOCIAL_URLS.filter((social) => social !== url))
             return (
-              <Tooltip
-                open
-                key={url}
-                componentsProps={ICON_BTN_TOOLTIP_PROPS}
-                title={
-                  <IconButton
-                    sx={{ mb: -1.5 }}
-                    onClick={() => {
-                      remove()
-                      setNewSocial(url)
-                      setHideNewSocial(false)
-                    }}
-                  >
-                    <PencilSimple />
-                  </IconButton>
-                }
-                placement="top"
-              >
-                <Box>
-                  <Tooltip
-                    open
-                    componentsProps={ICON_BTN_TOOLTIP_PROPS}
-                    title={
-                      <IconButton sx={{ mt: -1.5 }} onClick={remove}>
-                        <Trash />
-                      </IconButton>
-                    }
-                  >
-                    {icon}
-                  </Tooltip>
-                </Box>
-              </Tooltip>
+              <Stack>
+                <IconButton
+                  sx={{ mx: 'auto' }}
+                  onClick={() => {
+                    remove()
+                    setNewSocial(url)
+                    setHideNewSocial(false)
+                  }}
+                >
+                  <PencilSimple />
+                </IconButton>
+                {icon}
+                <IconButton sx={{ mx: 'auto' }} onClick={remove}>
+                  <Trash />
+                </IconButton>
+              </Stack>
             )
           }
           return <Fragment key={url}>{icon}</Fragment>

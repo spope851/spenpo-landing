@@ -1,13 +1,3 @@
-const ICON_BTN_TOOLTIP_PROPS = {
-  tooltip: {
-    sx: {
-      bgcolor: 'transparent',
-      p: 0,
-      m: 0,
-    },
-  },
-}
-
 const DEFAULT_PROPS = {
   BACKGROUND_COLOR: '#E6E1DF',
   BACKGROUND_IMAGE: 'https://spenpo-landing.s3.amazonaws.com/default-background.svg',
@@ -15,4 +5,4 @@ const DEFAULT_PROPS = {
   SECONDARY_ACCENT_COLOR: '#5FA052',
 }
 
-export { ICON_BTN_TOOLTIP_PROPS, DEFAULT_PROPS }
+export { DEFAULT_PROPS }
