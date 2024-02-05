@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## 2.0.15
+
+### Patch Changes
+
+- 38d5282: action button can be removed. all text fields can be undefined. base64 string of headshot file is cached. edit buttons have ripple.
+
 ## 2.0.14
 
 ### Patch Changes
